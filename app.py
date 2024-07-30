@@ -1,4 +1,4 @@
-from flask import Flask, render_template, url_for
+from flask import Flask, render_template, url_for, request, redirect, flash
 from flask_sqlalchemy import SQLAlchemy
 from dataForm import Form
 
@@ -17,7 +17,7 @@ class ModelData(db.Model):
     amount = db.Column(db.Integer, nullable=False)
     category = db.Column(db.String(100), nullable=False, default="salary")
     date = db.Column(db.DateTime, nullable=False, default=datetime.now)
-    type = db.Column(db.String(20), nullable=False)
+    type = db.Column(db.String(20), nullable=False, default="income")
     
     def __repr__(self):
         return self.id
@@ -38,8 +38,9 @@ def add():
         new_expense = ModelData(amount=form.amount.data, category=form.category.data, type=form.type.data)
         db.session.add(new_expense)
         db.session.commit()
-        return 'Expense added successfully!'
-    return render_template('add.html', form=form)
+        flash('Expense added successfully!')  # Add flash message
+        return redirect(url_for('index'))  # Redirect to index page
+    return render_template('add.html', form=form )
 
 if __name__ == '__main__':
     app.run(debug=True)

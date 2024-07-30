@@ -5,9 +5,9 @@ from wtforms.validators import DataRequired
 class Form(FlaskForm):
     amount = IntegerField("Amount",validators=[DataRequired()])
     type = SelectField("Type", validators=[DataRequired()],
-                            choices=[('expense', 'expense'), ('income', 'income')])
+                            choices=[('Expense', 'Expense'), ('Income', 'Income')])
     category = SelectField("Category", validators=[DataRequired()],
-                           choices=[('rental', 'rental'), ('salary', 'salary'), ('shopping', 'shopping'),
-                                    ('amusement', 'amusement'),('crypto', 'crypto'),('other', 'other')])
+                           choices=[('rental', 'Rental'), ('salary', 'Salary'), ('shopping', 'Shopping'),
+                                    ('amusement', 'Amusement'),('crypto', 'Crypto'),('other', 'Other')])
     submit =SubmitField("Submit")
     
