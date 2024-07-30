@@ -1,5 +1,6 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, url_for
 from flask_sqlalchemy import SQLAlchemy
+from dataForm import Form
 
 
 
@@ -28,6 +29,16 @@ def index():
 @app.route('/base')
 def base():
     return render_template('base.html')
+
+@app.route('/add', methods=['POST'])
+def add():
+    form = Form()
+    if form.validate_on_submit():
+        new_expense = ModelData(amount=form.amount.data, category=form.category.data, type=form.type.data)
+        db.session.add(new_expense)
+        db.session.commit()
+        return 'Expense added successfully!'
+    return render_template('add.html', form=form)
 
 if __name__ == '__main__':
     app.run(debug=True)
