@@ -6,8 +6,19 @@ from flask_sqlalchemy import SQLAlchemy
 app = Flask(__name__)
 
 app.config['SQLALCHEMY_DATABASE_URI'] ='sqlite:///expenses.db'
-
 db = SQLAlchemy(app)
+
+from datetime import datetime
+
+class ModelData(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    amount = db.Column(db.Integer, nullable=False)
+    category = db.Column(db.String(100), nullable=False, default="salary")
+    date = db.Column(db.DateTime, nullable=False, default=datetime.now)
+    type = db.Column(db.String(20), nullable=False)
+    
+    def __repr__(self):
+        return self.id
 
 
 @app.route('/')
