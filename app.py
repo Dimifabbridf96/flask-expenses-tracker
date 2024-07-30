@@ -7,6 +7,7 @@ from dataForm import Form
 app = Flask(__name__)
 
 app.config['SQLALCHEMY_DATABASE_URI'] ='sqlite:///expenses.db'
+app.config['SECRET_KEY'] = "53LPSsRsJn"
 db = SQLAlchemy(app)
 
 from datetime import datetime
@@ -30,7 +31,7 @@ def index():
 def base():
     return render_template('base.html')
 
-@app.route('/add', methods=['POST'])
+@app.route('/add', methods=["GET", 'POST'])
 def add():
     form = Form()
     if form.validate_on_submit():
