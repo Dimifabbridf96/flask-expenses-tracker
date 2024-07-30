@@ -51,5 +51,25 @@ def delete(expense_id):
     flash('Expense deleted successfully!', 'danger')  # Add flash message
     return redirect(url_for('index'))  # Redirect to index page
 
+@app.route('/update/<int:expense_id>', methods=['GET', 'POST'])
+def update(expense_id):
+    form = Form()
+    expense = ModelData.query.get_or_404(int(expense_id))
+    form.amount.data = expense.amount
+    form.category.data = expense.category
+    form.type.data = expense.type
+    if request.method == 'POST':
+        expense.amount = request.form['amount']
+        expense.category = request.form['category']
+        expense.type = request.form['type']  # Update the form data in the expense object
+        try: # Add the expense to the session
+            db.session.commit()
+        except:
+            db.session.rollback()  # Rollback the session if there is an error
+            flash('There was an error updating the expense. Please try again.', 'danger')
+        flash('Expense updated successfully!', 'success')  # Add flash message
+        return redirect(url_for('index'))  # Redirect to index page
+    return render_template('update.html', form=form)
+
 if __name__ == '__main__':
     app.run(debug=True)

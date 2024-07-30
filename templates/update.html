@@ -1,0 +1,21 @@
+{% extends 'base.html'%}
+{% block content %}
+<div class="d-flex pt-4 justify-content-center ">
+<form action="" method="POST" class="col-6 d-flex flex-column gap-4 justify-content-end card p-4" >
+    {{ form.hidden_tag() }}
+    <div class="form-group">
+        {{ form.amount.label(class="mb-2") }}
+        {{ form.amount(class="form-control") }}
+    </div>
+    <div class="form-group">
+        {{ form.category.label(class="mb-2") }}
+        {{ form.category(class="form-control m-auto") }}
+    </div>
+    <div class="form-group">
+    {{ form.type.label(class="mb-2") }}
+    {{ form.type(class="form-control m-auto") }}
+</div>
+    <input type="submit" value="Update">
+</form>
+</div>
+{% endblock %}
