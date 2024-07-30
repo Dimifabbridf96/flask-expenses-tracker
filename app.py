@@ -25,7 +25,8 @@ class ModelData(db.Model):
 
 @app.route('/')
 def index():
-    return render_template('index.html')
+    expenses = ModelData.query.order_by(ModelData.date.desc()).all()
+    return render_template('index.html', expenses=expenses)
 
 @app.route('/base')
 def base():
@@ -38,9 +39,17 @@ def add():
         new_expense = ModelData(amount=form.amount.data, category=form.category.data, type=form.type.data)
         db.session.add(new_expense)
         db.session.commit()
-        flash('Expense added successfully!')  # Add flash message
+        flash('Expense added successfully!','sucess')  # Add flash message
         return redirect(url_for('index'))  # Redirect to index page
     return render_template('add.html', form=form )
+
+@app.route('/delete/<int:expense_id>', methods=['GET'])
+def delete(expense_id):
+    expense = ModelData.query.get_or_404(int(expense_id))
+    db.session.delete(expense)
+    db.session.commit()
+    flash('Expense deleted successfully!', 'danger')  # Add flash message
+    return redirect(url_for('index'))  # Redirect to index page
 
 if __name__ == '__main__':
     app.run(debug=True)

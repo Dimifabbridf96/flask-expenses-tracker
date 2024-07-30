@@ -1,16 +1,16 @@
 {% extends 'base.html' %}
 {% block content %}
-{% with messages = get_flashed_messages() %}
+{% with messages = get_flashed_messages(with_categories= True) %}
         {% if messages %}
-            {% for message in messages %}
-            <div class="alert alert-success flash-message text-center">
+            {% for category, message in messages %}
+            <div class="alert alert-{{ category }} flash-message text-center col-6 m-auto mb-2">
                 <p>{{ message }}</p>
             </div>
             {% endfor %}
         {% endif %}
     {% endwith %}
  <h1 class="d-flex justify-content-center mb-4"> Expense Tracker </h1>
- 
+ <div class="col-10 m-auto">
  <table class="table table-striped table-hover">
     <thead>
         <tr>
@@ -18,19 +18,22 @@
             <th scope="col">Date</th>
             <th scope="col">Category</th>
             <th scope="col">Amount</th>
+            <th scope="col">Delete</th>
         </tr>
     </thead>
     <tbody>
         {% for expense in expenses %}
         <tr>
-            <th scope="row">{{ expense.id }}</th>
+            <th scope="row">{{ loop.index }}</th>
             <td>{{ expense.date }}</td>
             <td>{{ expense.category }}</td>
             <td>{{ expense.amount }}</td>
+            <td><a href={{ url_for('delete', expense_id = expense.id) }} class="text-decoration-none">❌</a></td>
         </tr>
         {% endfor %}
     </tbody>
     </table>
+</div>
     <div class="d-flex justify-content-center">
         <a href={{ url_for('add')}} class="text-decoration-none text-black btn btn-outline-primary col-4 text-center" role="button">Add balance changes</a>
     </div>
