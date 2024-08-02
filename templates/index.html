@@ -29,15 +29,15 @@
             <td>{{ expense.date }}</td>
             <td>{{ expense.category }}</td>
             <td>{{ expense.amount }}</td>
-            <td><a href={{ url_for('delete', expense_id = expense.id) }} class="text-decoration-none">❌</a></td>
-            <td><a href={{ url_for('update', expense_id = expense.id) }} class="text-decoration-none"><img src="{{ url_for('static', filename='update.ico') }}" alt="update icon"></a></td>
+            <td><a href="{{ url_for('delete', expense_id = expense.id) }}" class="text-decoration-none">❌</a></td>
+            <td><a href="{{ url_for('update', expense_id = expense.id) }}" class="text-decoration-none"><img src="{{ url_for('static', filename='assets/update.ico') }}" alt="update icon"></a></td>
         </tr>
         {% endfor %}
     </tbody>
     </table>
 </div>
     <div class="d-flex justify-content-center">
-        <a href={{ url_for('add')}} class="text-decoration-none text-black btn btn-outline-primary col-4 text-center" role="button">Add balance changes</a>
+        <a href="{{ url_for('add')}}" class="text-decoration-none text-black btn btn-outline-primary col-4 text-center mb-4" role="button">Add balance changes</a>
     </div>
 {% endblock%}
 
