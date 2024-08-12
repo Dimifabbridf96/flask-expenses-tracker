@@ -1,7 +1,7 @@
 {% extends 'base.html'%}
 {% block content %}
 <div class="d-flex pt-4 justify-content-center ">
-<form action="" method="POST" class="col-6 d-flex flex-column gap-4 justify-content-end card p-4" >
+<form action="" method="POST" class="col-md-6 col-10 d-flex flex-column gap-4 justify-content-end card p-4" >
     {{ form.csrf_token }}
     <div class="form-group">
         {{ form.amount.label(class="mb-2") }}

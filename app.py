@@ -120,7 +120,12 @@ def charts():
 @app.route('/salary', methods = ['GET', 'POST'])
 def salary():
     form = Salary()
-    annual_income = monthly_income = weekly_income = hourly_income = daily_income = hours_per_day = net_annual_income = net_monthly_income = net_hourly_income = net_weekly_income = tax_income = net_daily_income = monthly_tax_income = weekly_tax_income = daily_tax_income = hours_tax_income = None
+    monthly_income = 0 
+    weekly_income = 0
+    hourly_income =0
+    daily_income =0
+    hours_per_day = net_annual_income = net_monthly_income = net_hourly_income = net_weekly_income = tax_income = net_daily_income = monthly_tax_income = weekly_tax_income = daily_tax_income = hours_tax_income = None
+    annual_income= 0
     if form.validate_on_submit():
         salary = form.salary.data
         hours_per_day = form.hour.data
@@ -219,7 +224,7 @@ def salary():
 @app.route('/Spouse2Income',  methods = ['GET', 'POST'])
 def Spouse2Income():
     form = Spouse_2_Income()
-    spouse1_annual_income = spouse2_annual_income = annual_income = spouse1_monthly_income = spouse2_monthly_income = spouse1_daily_income = spouse2_daily_income = spouse1_weekly_income = spouse2_weekly_income = spouse1_hourly_income = spouse2_hourly_income = net_annual_income = tax_income = spouse1_hours_per_day = spouse2_hours_per_day = None
+    monthly_income = net_monthly_income = weekly_income = net_weekly_income = daily_income = net_daily_income = monthly_tax_income = weekly_tax_income = daily_tax_income = spouse1_tax_income = net_spouse1_weekly_income= net_spouse1_hourly_income= net_spouse2_hourly_income = net_spouse1_hourly_income_tax = net_spouse2_hourly_income_tax= net_spouse2_weekly_income = net_spouse1_daily_income = net_spouse2_daily_income = net_spouse1_weekly_income_tax = net_spouse2_weekly_income_tax = net_spouse1_daily_income_tax = net_spouse2_daily_income_tax = spouse1_annual_income = spouse2_annual_income = annual_income = spouse1_monthly_income = spouse2_monthly_income = spouse1_daily_income = spouse2_daily_income = spouse1_weekly_income = spouse2_weekly_income = spouse1_hourly_income = spouse2_hourly_income = net_annual_income = tax_income = net_spouse1_monthly_income_tax = net_spouse2_monthly_income_tax = net_spouse1_annual_income = net_spouse2_annual_income = net_spouse1_monthly_income = net_spouse2_monthly_income = None    
     if form.validate_on_submit():
         spouse1_income = form.spouse1_salary.data
         spouse2_income = form.spouse2_salary.data
@@ -240,9 +245,13 @@ def Spouse2Income():
             spouse2_daily_income = "{:.2f}".format(spouse2_annual_income / 365)
             spouse1_weekly_income = "{:.2f}".format(float(spouse1_daily_income) * 7)
             spouse2_weekly_income = "{:.2f}".format(float(spouse2_daily_income) * 7)
+            
             spouse1_hourly_income = "{:.2f}".format(float(spouse1_daily_income) / spouse1_hours)
+            
             spouse2_hourly_income = "{:.2f}".format(float(spouse2_daily_income) / spouse2_hours)
             tax_income = annual_income * 0.20
+            spouse1_tax_income = spouse1_annual_income * 0.20
+            spouse2_tax_income = spouse2_annual_income * 0.20
             net_annual_income = annual_income - tax_income
             net_monthly_income = "{:.2f}".format(net_annual_income / 12)
             net_daily_income = "{:.2f}".format(net_annual_income / 365)
@@ -250,6 +259,43 @@ def Spouse2Income():
             monthly_tax_income =  "{:.2f}".format(float(monthly_income) - float(net_monthly_income))
             weekly_tax_income =  "{:.2f}".format(float(weekly_income) - float(net_weekly_income))
             daily_tax_income =  "{:.2f}".format(float(daily_income) - float(net_daily_income))
+            
+            net_spouse1_annual_income = spouse1_annual_income - spouse1_tax_income
+            net_spouse2_annual_income = spouse2_annual_income - spouse2_tax_income
+            
+            net_monthly_income = "{:.2f}".format(net_annual_income / 12)
+            
+            net_spouse1_monthly_income = "{:.2f}".format(net_spouse1_annual_income / 12)
+            net_spouse1_monthly_income_tax = "{:.2f}".format(float(spouse1_monthly_income) - float(net_spouse1_monthly_income))
+            
+            net_spouse2_monthly_income = "{:.2f}".format(net_spouse2_annual_income / 12)
+            net_spouse2_monthly_income_tax = "{:.2f}".format(float(spouse2_monthly_income) - float(net_spouse2_monthly_income))
+            
+            net_spouse1_daily_income = "{:.2f}".format(net_spouse1_annual_income / 365)
+            net_spouse2_daily_income = "{:.2f}".format(net_spouse2_annual_income / 365)
+            
+            net_spouse1_daily_income_tax = "{:.2f}".format(float(spouse1_daily_income) - float(net_spouse1_daily_income))
+            net_spouse2_daily_income_tax = "{:.2f}".format(float(spouse2_daily_income) - float(net_spouse2_daily_income))
+            
+            net_spouse1_weekly_income = "{:.2f}".format(float(net_spouse1_daily_income) * 7)
+            net_spouse2_weekly_income = "{:.2f}".format(float(net_spouse2_daily_income) * 7)
+            
+            net_spouse1_weekly_income_tax = "{:.2f}".format(float(spouse1_weekly_income) - float(net_spouse1_weekly_income))
+            net_spouse2_weekly_income_tax = "{:.2f}".format(float(spouse2_weekly_income) - float(net_spouse2_weekly_income))
+            
+            net_spouse1_hourly_income = "{:.2f}".format(float(net_spouse1_daily_income) / spouse1_hours )
+            net_spouse2_hourly_income = "{:.2f}".format(float(net_spouse2_daily_income) / spouse2_hours)
+            
+            net_spouse1_hourly_income_tax = "{:.2f}".format(float(spouse1_hourly_income) - float(net_spouse1_hourly_income))
+            net_spouse2_hourly_income_tax = "{:.2f}".format(float(spouse2_hourly_income) - float(net_spouse2_hourly_income))
+
+
+            net_daily_income = "{:.2f}".format(net_annual_income / 365)
+            net_weekly_income = "{:.2f}".format(float(net_daily_income) * 7)
+            monthly_tax_income =  "{:.2f}".format(float(monthly_income) - float(net_monthly_income))
+            weekly_tax_income =  "{:.2f}".format(float(weekly_income) - float(net_weekly_income))
+            daily_tax_income =  "{:.2f}".format(float(daily_income) - float(net_daily_income))
+            
             if annual_income < 84000 and spouse1_income > 51000:
                 extra_wage = spouse1_income - 51000
                 tax_income = round(((annual_income - extra_wage) * 0.20) + (extra_wage * 0.40), 2)
@@ -262,13 +308,21 @@ def Spouse2Income():
                 net_annual_income = annual_income - tax_income
                 
     return render_template('spouse2Income.html', form=form, annual_income = annual_income, monthly_income=monthly_income, weekly_income=weekly_income, daily_income=daily_income,
-                           taxes=tax_income, net_annual_income=net_annual_income, net_monthly_income=net_monthly_income, net_weekly_income= net_weekly_income, net_daily_income=net_daily_income,
+                           taxes=tax_income, spouse1_tax_income=spouse1_tax_income, net_spouse2_annual_income= net_spouse2_annual_income, net_spouse1_monthly_income=net_spouse1_monthly_income,
+                           net_spouse2_monthly_income = net_spouse2_monthly_income, net_spouse1_monthly_income_tax=net_spouse1_monthly_income_tax,
+                           net_spouse1_weekly_income=net_spouse1_weekly_income, net_spouse2_weekly_income=net_spouse2_weekly_income,
+                           net_spouse2_monthly_income_tax=net_spouse2_monthly_income_tax, net_spouse1_daily_income=net_spouse1_daily_income, net_spouse2_daily_income = net_spouse2_daily_income,
+                           net_spouse1_hourly_income=net_spouse1_hourly_income, net_spouse2_hourly_income=net_spouse2_hourly_income,
+                           net_spouse1_hourly_income_tax=net_spouse1_hourly_income_tax, net_spouse2_hourly_income_tax=net_spouse2_hourly_income_tax,
+                           net_spouse1_weekly_income_tax=net_spouse1_weekly_income_tax, net_spouse2_weekly_income_tax=net_spouse2_weekly_income_tax,
+                           net_spouse1_daily_income_tax=net_spouse1_daily_income_tax, net_spouse2_daily_income_tax=net_spouse2_daily_income_tax,
+                           net_annual_income=net_annual_income, net_monthly_income=net_monthly_income, net_weekly_income= net_weekly_income, net_daily_income=net_daily_income,
                            monthly_tax_income=monthly_tax_income, weekly_tax_income=weekly_tax_income, daily_tax_income=daily_tax_income,
-                           spouse1_annual_income=spouse1_annual_income, spouse2_annual_income=spouse2_annual_income,
+                           spouse1_annual_income=spouse1_annual_income, net_spouse1_annual_income=net_spouse1_annual_income, spouse2_annual_income=spouse2_annual_income,
                            spouse1_monthly_income=spouse1_monthly_income, spouse2_monthly_income=spouse2_monthly_income,
-                           spouse1_daily_income=spouse1_daily_income, spouse2_daily_income=spouse2_daily_income, 
+                           spouse1_daily_income=spouse1_daily_income, spouse2_daily_income=spouse2_daily_income,
                            spouse1_weekly_income=spouse1_weekly_income, spouse2_weekly_income=spouse2_weekly_income,
-                           spouse1_hourly_income=spouse1_hourly_income, spouse2_hourly_income=spouse2_hourly_income)
+                           spouse1_hourly_income=spouse1_hourly_income, spouse2_hourly_income=spouse2_hourly_income )
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=False)

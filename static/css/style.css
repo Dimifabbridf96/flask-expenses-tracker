@@ -1,0 +1,28 @@
+nav{
+    margin-bottom: 100px;
+}
+
+#category_canvas{
+    min-height: 300px;
+}
+
+@media only screen and (max-width: 520px) {
+    .index{
+        font-size: 0.75em;
+    }
+}
+
+@media only screen and (max-width: 420px) {
+    .index{
+        font-size: 0.5em;
+    }
+}
+
+@media only screen and (max-width: 390px) {
+    table, .nav-item{
+        font-size: 0.75em;
+    }
+    nav{
+        margin-bottom: 20px;
+    }
+}

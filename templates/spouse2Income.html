@@ -10,7 +10,7 @@
         {% endif %}
     {% endwith %}
     <div class="d-flex pt-4 justify-content-center ">
-        <form action="" method="POST" class="col-6 d-flex flex-column gap-4 justify-content-end card p-4" >
+        <form action="" method="POST" class="col-md-6 col-10 d-flex flex-column gap-4 justify-content-end card p-4">
           {{ form.hidden_tag() }}
           <div class="form-group">
             {{ form.spouse1_salary.label(class="mb-2")}}
@@ -33,7 +33,7 @@
     </div>
 
     {% if annual_income %}
-    <div class="col-6 gap-4 m-auto card p-4 text-center mt-4 mb-4">
+    <div class="col-md-6 col-11 gap-4 m-auto card p-4 mt-4 mb-4">
         <table class="table table-striped table-hover">
             <thead>
                 <tr>
@@ -51,10 +51,7 @@
                         <td>{{ annual_income }}</td>
                         <td>{{ net_annual_income }}</td>
                         <td>{{ taxes }}</td>
-
                         </tr>
-                    <tr>
-                    </tr>
                     <tr>
                         <th scope="row"></th>
                         <td> Monthly</td>
@@ -75,6 +72,85 @@
                         <td>{{ daily_income }}</td>
                         <td>{{ net_daily_income }}</td>
                         <td>{{ daily_tax_income }}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row"></th>
+                    </tr>
+                    <tr>
+                        <th scope="row">1° Spouse </th>
+                        <td> Annual</td>
+                        <td>{{ spouse1_annual_income }}</td>
+                        <td>{{ net_spouse1_annual_income }}</td>
+                        <td>{{ spouse1_tax_income }}</td>
+
+                        </tr>
+                    <tr>
+                    </tr>
+                    <tr>
+                        <th scope="row"></th>
+                        <td> Monthly</td>
+                        <td>{{ spouse1_monthly_income }}</td>
+                        <td>{{ net_spouse1_monthly_income }}</td>
+                        <td>{{ net_spouse1_monthly_income_tax }}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row"></th>
+                        <td> Weekly</td>
+                        <td>{{ spouse1_weekly_income }}</td>
+                        <td>{{ net_spouse1_weekly_income }}</td>
+                        <td>{{ net_spouse1_weekly_income_tax }}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row"></th>
+                        <td> Daily</td>
+                        <td>{{ spouse1_daily_income }}</td>
+                        <td>{{ net_spouse1_daily_income }}</td>
+                        <td>{{ net_spouse1_daily_income_tax }}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row"></th>
+                        <td> Hourly</td>
+                        <td>{{ spouse1_hourly_income }}</td>
+                        <td>{{ net_spouse1_hourly_income }}</td>
+                        <td>{{ net_spouse1_hourly_income_tax }}</td>
+                    </tr>
+                    <th scope="row"></th>
+                    <tr>
+                        <th scope="row">2° Spouse </th>
+                        <td> Annual</td>
+                        <td>{{ spouse2_annual_income }}</td>
+                        <td>{{ net_annual_income }}</td>
+                        <td>{{ taxes }}</td>
+                        </tr>
+                    <tr>
+                    </tr>
+                    <tr>
+                        <th scope="row"></th>
+                        <td> Monthly</td>
+                        <td>{{ monthly_income }}</td>
+                        <td>{{ net_monthly_income }}</td>
+                        <td>{{ net_spouse2_monthly_income_tax }}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row"></th>
+                        <td> Weekly</td>
+                        <td>{{ spouse2_weekly_income }}</td>
+                        <td>{{ net_spouse2_weekly_income }}</td>
+                        <td>{{ net_spouse2_weekly_income_tax }}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row"></th>
+                        <td> Daily</td>
+                        <td>{{ daily_income }}</td>
+                        <td>{{ net_spouse2_daily_income }}</td>
+                        <td>{{ net_spouse2_daily_income_tax }}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row"></th>
+                        <td> Hourly</td>
+                        <td>{{ spouse2_hourly_income }}</td>
+                        <td>{{ net_spouse2_hourly_income }}</td>
+                        <td>{{ net_spouse2_hourly_income_tax }}</td>
                     </tr>
                 </tbody>
         </table>
