@@ -14,4 +14,7 @@ class Form(FlaskForm):
 class Salary(FlaskForm):
     salary = IntegerField("Annual Salary", validators=[DataRequired()])
     hour = IntegerField("Daily Hours", validators=[DataRequired()])
+    relation = SelectField("Relation", validators=[DataRequired()],
+                            choices=[('Single', 'Single'), ('Spouse 1 income', 'Spouse 1 income'), ('Spouse 2 income', 'Spouse 2 income'),
+                                    ('Lone parent', 'Lone parent')])
     submit = SubmitField("Submit")

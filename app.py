@@ -124,6 +124,7 @@ def salary():
     if form.validate_on_submit():
         salary = form.salary.data
         hours_per_day = form.hour.data
+        relation = form.relation.data
         if hours_per_day > 24:
             flash('Warning: Hours per day should not exceed 24.', 'warning')
         else:
@@ -132,9 +133,19 @@ def salary():
             daily_income = "{:.2f}".format(annual_income / 365)
             weekly_income = "{:.2f}".format(float(daily_income) * 7)
             hourly_income = "{:.2f}".format(float(daily_income) / hours_per_day)
+        if relation == 'Single':
+            if annual_income < 42000:
+               net_annual_income = annual_income - (annual_income * 0.20)
+            elif annual_income > 42000:
+                first_wage = annual_income - 42000
+                tax_income = (annual_income - first_wage)*0.20 + (first_wage * 0.40)
+                net_annual_income = annual_income - (tax_income)
+            
             flash('Salary Calculated Successfully!','success')  # Add flash message
+        
     return render_template('salary.html', form=form, annual_income=annual_income, monthly_income=monthly_income,
-                           weekly_income=weekly_income, hourly_income=hourly_income, daily_income=daily_income)
+                           weekly_income=weekly_income, hourly_income=hourly_income, daily_income=daily_income, 
+                           net_annual_income=net_annual_income, taxes=tax_income)
 
 
 if __name__ == '__main__':
