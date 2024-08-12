@@ -12,10 +12,21 @@
             </div>
         </div>
     </div>
+
+    <div class=" col-10 col-md-6">
+        <div class="card card-style mb-2">
+            <div class="card-body">
+                <div class="chart-container">
+                    <canvas id="category_canvas"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
         let income_vs_expense_data = JSON.parse('{{ income_expenses_json | safe }}');
-        
+
         let income_vs_expense_chart = new Chart(income_vs_expense, {
             type: 'pie',
             data: {
@@ -24,6 +35,64 @@
                     label: "Income Vs Expenses",
                     data:income_vs_expense_data,
                     backgroundColor: ['#5DA5DA ', '#FAA43A'],
+
+                    borderWidth: 1,
+                    hoverBorderColor: "black",
+                    hoverBorderWidth: 2,
+                    hoverBackgroundColor: 'rgba(154, 245, 140)',
+                    pointHoverRadius: 5
+                }],
+            },
+            options: {
+                maintainAspectRatio: false,
+                    title: {
+                        display: true,
+                            text: "Income Vs Expenses",
+                                fontSize: 20,
+                    },
+                    legend: {
+                        position: "right",
+                            labels: {
+                            fontColor: "gray"
+                        },
+                        display: true,
+                    },
+
+                    elements: {
+                        hitRadius: 3,
+                    }
+            }
+        })
+
+        let income_vs_expense_category = JSON.parse('{{ income_expense_category | safe }}');
+    let type_labels = JSON.parse('{{ type_label | safe }}');
+    let category = JSON.parse('{{ category_label | safe }}');
+
+    let groupedData = {};
+    for (let i = 0; i < income_vs_expense_category.length; i++) {
+        let key = type_labels[i] + '-' + category[i];
+        if (groupedData[key]) {
+            groupedData[key] += income_vs_expense_category[i];
+        } else {
+            groupedData[key] = income_vs_expense_category[i];
+        }
+    }
+
+    // Create the labels and data arrays for the pie chart
+    let groupedCategoryLabels = Object.keys(groupedData);
+    let groupedCategoryData = Object.values(groupedData);
+    console.log(groupedCategoryLabels);
+
+
+    let income_vs_expense_c = new Chart(category_canvas, {
+            type: 'bar',
+            data: {
+            labels: groupedCategoryLabels,
+                datasets: [{
+                    label: "Income & Expenses by category",
+                    data: groupedCategoryData,
+                    backgroundColor: ['#5DA5DA ', '#FAA43A', '#60BD68',
+                        '#B276B2', '#E16851', '#FB8257'],
 
                     borderWidth: 1,
                     hoverBorderColor: "black",

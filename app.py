@@ -74,12 +74,26 @@ def update(expense_id):
 @app.route('/charts')
 def charts():
     income_vs_expenses = db.session.query(db.func.sum(ModelData.amount), ModelData.type).group_by(ModelData.type).order_by(ModelData.type).all()
+    income_vs_expenses_category = db.session.query(db.func.sum(ModelData.amount), ModelData.type, ModelData.category).group_by(ModelData.type, ModelData.category).order_by(ModelData.category).all()
     
     income_expense = []
     for total_income, _ in income_vs_expenses:
         income_expense.append(total_income)
+    
+    income_vs_expense_category = []
+    type_label = []
+    category_label = []
+    
+    for total_category, types, category in  income_vs_expenses_category:
+        income_vs_expense_category.append(total_category)
+        type_label.append(types)
+        category_label.append(category)
 
-    return render_template('charts.html', income_expenses_json = json.dumps(income_expense))
+
+    return render_template('charts.html', income_expenses_json = json.dumps(income_expense),
+                           income_expense_category = json.dumps(income_vs_expense_category),
+                           type_label = json.dumps(type_label),
+                           category_label = json.dumps(category_label))
 
 if __name__ == '__main__':
     app.run(debug=True)
