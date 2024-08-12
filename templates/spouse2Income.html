@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+{% block content %}
+{% with messages = get_flashed_messages(with_categories= True) %}
+        {% if messages %}
+            {% for category, message in messages %}
+            <div class="alert alert-{{ category }} flash-message text-center col-6 m-auto mb-2">
+                <p>{{ message }}</p>
+            </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+    <div class="d-flex pt-4 justify-content-center ">
+        <form action="" method="POST" class="col-6 d-flex flex-column gap-4 justify-content-end card p-4" >
+          {{ form.hidden_tag() }}
+          <div class="form-group">
+            {{ form.spouse1_salary.label(class="mb-2")}}
+            {{ form.spouse1_salary(class="form-control") }}
+        </div>
+          <div class="form-group">
+            {{ form.spouse2_salary.label(class="mb-2")}}
+            {{ form.spouse2_salary(class="form-control") }}
+        </div>
+          <div class="form-group">
+            {{ form.spouse1_hour.label(class="mb-2") }}
+            {{ form.spouse1_hour(class="form-control") }}
+        </div>
+            <div class="form-group">
+            {{ form.spouse2_hour.label(class="mb-2") }}
+            {{ form.spouse2_hour(class="form-control") }}
+        </div>
+        <input type="submit" value="Calculate">
+    </form>
+    </div>
+
+    {% if annual_income %}
+    <div class="col-10 gap-4 m-auto card p-4 text-center mt-4">
+        <table class="table table-striped table-hover">
+              <thead>
+                <tr>
+                  <th scope="col">Spouse</th>
+                  <th scope="col">Annual Income</th>
+                  <th scope="col">Net Annual Income</th>
+                  <th scope="col">Monthly Income</th>
+                  <th scope="col">Weekly Income</th>
+                  <th scope="col">Daily Income</th>
+                  <th scope="col">Hourly Income</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Spouse 1</td>
+                  <td>{{ spouse1_annual_income }}</td>
+                  <td>{{ spouse1_monthly_income }}</td>
+                  <td>{{ spouse1_weekly_income }}</td>
+                  <td>{{ spouse1_daily_income }}</td>
+                  <td>{{ spouse1_hourly_income }}</td>
+                </tr>
+                <tr>
+                  <td>Spouse 2</td>
+                  <td>{{ spouse2_annual_income }}</td>
+                  <td>{{ spouse2_monthly_income }}</td>
+                  <td>{{ spouse2_weekly_income }}</td>
+                  <td>{{ spouse2_daily_income }}</td>
+                  <td>{{ spouse2_hourly_income }}</td>
+                </tr>
+              </tbody>
+        </table>
+    {% endif %}
+
+    {% endblock %}
