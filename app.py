@@ -120,27 +120,24 @@ def charts():
 @app.route('/salary', methods = ['GET', 'POST'])
 def salary():
     form = Salary()
-    monthly_income = 0 
-    weekly_income = 0
-    hourly_income =0
-    daily_income =0
-    hours_per_day = 0
-    net_annual_income = net_monthly_income = net_hourly_income = net_weekly_income = tax_income = net_daily_income = monthly_tax_income = weekly_tax_income = daily_tax_income = hours_tax_income = None
-    annual_income= 0
-    salary = 0
+    salary = monthly_income=weekly_income = hourly_income = daily_income = hours_per_day = net_annual_income = net_monthly_income = net_hourly_income = net_weekly_income = tax_income = net_daily_income = monthly_tax_income = weekly_tax_income = daily_tax_income = hours_tax_income = 1
+    annual_income= None
     if form.validate_on_submit():
         salary = form.salary.data
         hours_per_day = form.hour.data
         relation = form.relation.data
-    if hours_per_day > 24 or hours_per_day is None:
-        flash('Warning: Hours per day should not exceed 24.', 'warning')
-    else:
+        
+        if hours_per_day > 24:
+            flash('Warning: Hours per day should not exceed 24.', 'warning')
+            return redirect(url_for('salary'))
+            
         annual_income = salary
         monthly_income = "{:.2f}".format(annual_income / 12)
         daily_income = "{:.2f}".format(annual_income / 365)
         weekly_income = "{:.2f}".format(float(daily_income) * 7)
         hourly_income = "{:.2f}".format(float(daily_income) / hours_per_day)
         hours_per_day = hours_per_day
+        
         if relation == 'Single':
             if annual_income < 42000:
                 tax_income = "{:.2f}".format(annual_income * 0.20)
