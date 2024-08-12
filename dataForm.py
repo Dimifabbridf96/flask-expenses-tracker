@@ -19,4 +19,7 @@ class Salary(FlaskForm):
                                     ('Lone parent', 'Lone parent')])
     spouse1_salary = IntegerField("1* Spouse Salary")
     spouse2_salary = IntegerField("2* Spouse Salary")
+    spouse1_hour = IntegerField("1* Spouse Daily Hours")
+    spouse2_hour = IntegerField("2* Spouse Daily Hours")
+
     submit = SubmitField("Submit")
