@@ -10,13 +10,21 @@
             {% endfor %}
         {% endif %}
     {% endwith %}
-<div class="d-flex pt-4 justify-content-center ">
-    <form action="" method="POST" class="col-6 d-flex flex-column gap-4 justify-content-end card p-4" >
-        {{ form.hidden_tag() }}
-        <div class="form-group">
+    <div class="d-flex pt-4 justify-content-center ">
+        <form action="" method="POST" class="col-6 d-flex flex-column gap-4 justify-content-end card p-4" >
+          {{ form.hidden_tag() }}
+          <div class="form-group">
+            {{ form.spouse1_salary.label(class="mb-2")}}
+            {{ form.spouse1_salary(class="form-control") }}
+          </div>
+          <div class="form-group">
+            {{ form.spouse2_salary.label(class="mb-2")}}
+            {{ form.spouse2_salary(class="form-control") }}
+          </div>
+          <div class="form-group">
             {{ form.salary.label(class="mb-2") }}
             {{ form.salary(class="form-control") }}
-        </div>
+          </div>
         <div class="form-group">
             {{ form.hour.label(class="mb-2") }}
             {{ form.hour(class="form-control") }}
@@ -35,6 +43,7 @@
             <thead>
                 <tr>
                     <th scope="col">#</th>
+                    <th scope='col'>Relation</th>
                     <th scope="col">Gross Annual Salary</th>
                     <th scope="col">Net Annual Salary</th>
                     <th scope="col">Annual Taxes</th>
@@ -43,6 +52,7 @@
                 <tbody>
                     <tr>
                         <th scope="row">1</th>
+                        <td>{{ relation }}</td>
                         <td>{{ annual_income }}</td>
                         <td>{{ net_annual_income }}</td>
                         <td>{{ taxes }}</td>
@@ -65,3 +75,4 @@
     {% endif %}
 
 {% endblock %}
+

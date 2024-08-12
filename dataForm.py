@@ -17,4 +17,6 @@ class Salary(FlaskForm):
     relation = SelectField("Relation", validators=[DataRequired()],
                             choices=[('Single', 'Single'), ('Spouse 1 income', 'Spouse 1 income'), ('Spouse 2 income', 'Spouse 2 income'),
                                     ('Lone parent', 'Lone parent')])
+    spouse1_salary = IntegerField("1* Spouse Salary")
+    spouse2_salary = IntegerField("2* Spouse Salary")
     submit = SubmitField("Submit")
