@@ -120,7 +120,7 @@ def charts():
 @app.route('/salary', methods = ['GET', 'POST'])
 def salary():
     form = Salary()
-    annual_income = monthly_income = weekly_income = hourly_income = daily_income = hours_per_day = net_annual_income = tax_income = None
+    annual_income = monthly_income = weekly_income = hourly_income = daily_income = hours_per_day = net_annual_income = net_monthly_income = net_hourly_income = net_weekly_income = tax_income = net_daily_income = monthly_tax_income = weekly_tax_income = daily_tax_income = hours_tax_income = None
     if form.validate_on_submit():
         salary = form.salary.data
         hours_per_day = form.hour.data
@@ -154,23 +154,64 @@ def salary():
                 net_daily_income = "{:.2f}".format(net_annual_income / 365)
                 net_weekly_income = "{:.2f}".format(float(net_daily_income) * 7)
                 net_hourly_income = "{:.2f}".format(float(net_daily_income) / hours_per_day)
+                monthly_tax_income =  "{:.2f}".format(float(monthly_income) - float(net_monthly_income))
+                weekly_tax_income =  "{:.2f}".format(float(weekly_income) - float(net_weekly_income))
+                daily_tax_income =  "{:.2f}".format(float(daily_income) - float(net_daily_income))
+                hours_tax_income =  "{:.2f}".format(float(hourly_income) - float(net_hourly_income))
         elif relation == 'Spouse 1 income':
             if annual_income < 51000:
                 tax_income = annual_income * 0.20
                 net_annual_income = annual_income - (annual_income * 0.20)
+                net_monthly_income = "{:.2f}".format(net_annual_income / 12)
+                net_daily_income = "{:.2f}".format(net_annual_income / 365)
+                net_weekly_income = "{:.2f}".format(float(net_daily_income) * 7)
+                net_hourly_income = "{:.2f}".format(float(net_daily_income) / hours_per_day)
+                monthly_tax_income =  "{:.2f}".format(float(monthly_income) - float(net_monthly_income))
+                weekly_tax_income =  "{:.2f}".format(float(weekly_income) - float(net_weekly_income))
+                daily_tax_income =  "{:.2f}".format(float(daily_income) - float(net_daily_income))
+                hours_tax_income =  "{:.2f}".format(float(hourly_income) - float(net_hourly_income))
             elif annual_income > 51000:
                 first_wage = annual_income - 51000
                 tax_income = (annual_income - first_wage)*0.20 + (first_wage * 0.40)
                 net_annual_income = annual_income - tax_income
-            print(annual_income)
-        elif relation == 'Spouse 2 income':
-            return redirect(url_for('Spouse2Income'))
+                net_monthly_income = "{:.2f}".format(net_annual_income / 12)
+                net_daily_income = "{:.2f}".format(net_annual_income / 365)
+                net_weekly_income = "{:.2f}".format(float(net_daily_income) * 7)
+                net_hourly_income = "{:.2f}".format(float(net_daily_income) / hours_per_day)
+                monthly_tax_income =  "{:.2f}".format(float(monthly_income) - float(net_monthly_income))
+                weekly_tax_income =  "{:.2f}".format(float(weekly_income) - float(net_weekly_income))
+                daily_tax_income =  "{:.2f}".format(float(daily_income) - float(net_daily_income))
+                hours_tax_income =  "{:.2f}".format(float(hourly_income) - float(net_hourly_income))
+        elif relation == 'Lone parent':
+            if annual_income < 46000:
+                tax_income = annual_income * 0.20
+                net_annual_income = annual_income - (annual_income * 0.20)
+                net_monthly_income = "{:.2f}".format(net_annual_income / 12)
+                net_daily_income = "{:.2f}".format(net_annual_income / 365)
+                net_weekly_income = "{:.2f}".format(float(net_daily_income) * 7)
+                net_hourly_income = "{:.2f}".format(float(net_daily_income) / hours_per_day)
+                monthly_tax_income =  "{:.2f}".format(float(monthly_income) - float(net_monthly_income))
+                weekly_tax_income =  "{:.2f}".format(float(weekly_income) - float(net_weekly_income))
+                daily_tax_income =  "{:.2f}".format(float(daily_income) - float(net_daily_income))
+                hours_tax_income =  "{:.2f}".format(float(hourly_income) - float(net_hourly_income))
+            elif annual_income > 46000:
+                first_wage = annual_income - 46000
+                tax_income = (annual_income - first_wage)*0.20 + (first_wage * 0.40)
+                net_annual_income = annual_income - tax_income
+                net_monthly_income = "{:.2f}".format(net_annual_income / 12)
+                net_daily_income = "{:.2f}".format(net_annual_income / 365)
+                net_weekly_income = "{:.2f}".format(float(net_daily_income) * 7)
+                net_hourly_income = "{:.2f}".format(float(net_daily_income) / hours_per_day)
+                monthly_tax_income =  "{:.2f}".format(float(monthly_income) - float(net_monthly_income))
+                weekly_tax_income =  "{:.2f}".format(float(weekly_income) - float(net_weekly_income))
+                daily_tax_income =  "{:.2f}".format(float(daily_income) - float(net_daily_income))
+                hours_tax_income =  "{:.2f}".format(float(hourly_income) - float(net_hourly_income))
            
         flash('Salary Calculated Successfully!','success')  # Add flash message
         
     return render_template('salary.html', form=form, annual_income=annual_income, monthly_income=monthly_income,
                            weekly_income=weekly_income, hourly_income=hourly_income, daily_income=daily_income, 
-                           net_annual_income=net_annual_income, taxes=tax_income, relation=relation, net_monthly_income=net_monthly_income,
+                           net_annual_income=net_annual_income, taxes=tax_income, net_monthly_income=net_monthly_income,
                            net_daily_income=net_daily_income, net_weekly_income=net_weekly_income, net_hourly_income=net_hourly_income,
                            monthly_tax_income=monthly_tax_income, weekly_tax_income=weekly_tax_income, daily_tax_income=daily_tax_income,
                            hours_tax_income=hours_tax_income)
