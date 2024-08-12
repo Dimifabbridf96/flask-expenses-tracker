@@ -73,7 +73,13 @@ def update(expense_id):
 
 @app.route('/charts')
 def charts():
- return render_template('charts.html')
+    income_vs_expenses = db.session.query(db.func.sum(ModelData.amount), ModelData.type).group_by(ModelData.type).order_by(ModelData.type).all()
+    
+    income_expense = []
+    for total_income, _ in income_vs_expenses:
+        income_expense.append(total_income)
+
+    return render_template('charts.html', income_expenses_json = json.dumps(income_expense))
 
 if __name__ == '__main__':
     app.run(debug=True)
