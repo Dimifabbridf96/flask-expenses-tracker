@@ -124,7 +124,8 @@ def salary():
     weekly_income = 0
     hourly_income =0
     daily_income =0
-    hours_per_day = net_annual_income = net_monthly_income = net_hourly_income = net_weekly_income = tax_income = net_daily_income = monthly_tax_income = weekly_tax_income = daily_tax_income = hours_tax_income = None
+    hours_per_day = 0
+    net_annual_income = net_monthly_income = net_hourly_income = net_weekly_income = tax_income = net_daily_income = monthly_tax_income = weekly_tax_income = daily_tax_income = hours_tax_income = None
     annual_income= 0
     if form.validate_on_submit():
         salary = form.salary.data
