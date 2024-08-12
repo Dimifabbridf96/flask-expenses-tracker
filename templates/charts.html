@@ -23,6 +23,28 @@
         </div>
     </div>
 
+    <div class=" col-11 mt-4">
+        <div class="card card-style mb-2">
+            <div class="card-body">
+                <div class="chart-container">
+                    <canvas id="dates_canvas"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class=" col-11 mt-4">
+        <div class="card card-style mb-2">
+            <div class="card-body">
+                <div class="chart-container">
+                    <canvas id="dates_income"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
         let income_vs_expense_data = JSON.parse('{{ income_expenses_json | safe }}');
@@ -121,6 +143,52 @@
                     }
             }
         })
+
+        let expense_amount = JSON.parse('{{ expense_amount | safe }}');
+    let dates_label = JSON.parse('{{ dates_expense | safe }}');
+
+
+    let expense_d = new Chart(dates_canvas, {
+        type: "line",
+        data:
+        {
+            labels: dates_label,
+            datasets: [{
+                label: "Expense Over Time",
+                
+                data: expense_amount,
+                fill: false,
+                borderColor: "rgb(75, 192, 192)",
+                lineTension: 0.1
+            }]
+        },
+        options: {
+            maintainAspectRatio: false,
+            }
+    });
+
+    let income_amount = JSON.parse('{{ income_dates | safe }}');
+    let dates = JSON.parse('{{ dates_income | safe }}');
+
+
+    let income_d = new Chart(dates_income, {
+        type: "line",
+        data:
+        {
+            labels: dates,
+            datasets: [{
+                label: "Income Over Time",
+                
+                data: income_amount,
+                fill: false,
+                borderColor: "rgb(75, 192, 192)",
+                lineTension: 0.1
+            }]
+        },
+        options: {
+            maintainAspectRatio: false,
+            }
+    });
 
     </script>
 {% endblock %}

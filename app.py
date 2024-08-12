@@ -74,8 +74,13 @@ def update(expense_id):
 @app.route('/charts')
 def charts():
     income_vs_expenses = db.session.query(db.func.sum(ModelData.amount), ModelData.type).group_by(ModelData.type).order_by(ModelData.type).all()
+    
     income_vs_expenses_category = db.session.query(db.func.sum(ModelData.amount), ModelData.type, ModelData.category).group_by(ModelData.type, ModelData.category).order_by(ModelData.category).all()
     
+    expenses_on_dates = db.session.query(db.func.sum(ModelData.amount), ModelData.date).filter(ModelData.type == 'Expense').group_by(ModelData.date).order_by(ModelData.date).all()
+    
+    income_on_dates = db.session.query(db.func.sum(ModelData.amount), ModelData.date).filter(ModelData.type == 'Income').group_by(ModelData.date).order_by(ModelData.date).all()
+
     income_expense = []
     for total_income, _ in income_vs_expenses:
         income_expense.append(total_income)
@@ -89,11 +94,26 @@ def charts():
         type_label.append(types)
         category_label.append(category)
 
-
+    expense_amount = []
+    dates_expense = []
+    for total_expense_date, date_expense in expenses_on_dates:
+        expense_amount.append(total_expense_date)
+        dates_expense.append(date_expense.strftime("%m-%d-%y, %H:%M"))
+        
+    income_amount = []
+    dates = []
+    for total_date, date in income_on_dates:
+        income_amount.append(total_date)
+        dates.append(date.strftime("%m-%d-%y, %H:%M"))
+        
     return render_template('charts.html', income_expenses_json = json.dumps(income_expense),
                            income_expense_category = json.dumps(income_vs_expense_category),
                            type_label = json.dumps(type_label),
-                           category_label = json.dumps(category_label))
+                           category_label = json.dumps(category_label),
+                           expense_amount = json.dumps(expense_amount),
+                           dates_expense = json.dumps(dates_expense),
+                           income_dates = json.dumps(income_amount),
+                           dates_income = json.dumps(dates))
 
 if __name__ == '__main__':
     app.run(debug=True)
