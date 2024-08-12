@@ -1,6 +1,6 @@
 from flask import Flask, render_template, url_for, request, redirect, flash
 from flask_sqlalchemy import SQLAlchemy
-from dataForm import Form
+from dataForm import Form, Salary
 import json
 
 
@@ -71,7 +71,7 @@ def update(expense_id):
         return redirect(url_for('index'))  # Redirect to index page
     return render_template('update.html', form=form)
 
-@app.route('/charts')
+@app.route('/charts', methods=['GET'])
 def charts():
     income_vs_expenses = db.session.query(db.func.sum(ModelData.amount), ModelData.type).group_by(ModelData.type).order_by(ModelData.type).all()
     
@@ -114,6 +114,11 @@ def charts():
                            dates_expense = json.dumps(dates_expense),
                            income_dates = json.dumps(income_amount),
                            dates_income = json.dumps(dates))
+    
+@app.route('/salary', methods = ['GET', 'POST'])
+def salary():
+    form = Salary()
+    return render_template('salary.html')
 
 if __name__ == '__main__':
     app.run(debug=True)

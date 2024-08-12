@@ -10,4 +10,8 @@ class Form(FlaskForm):
                            choices=[('rental', 'Rental'), ('salary', 'Salary'), ('shopping', 'Shopping'),
                                     ('amusement', 'Amusement'),('crypto', 'Crypto'),('other', 'Other')])
     submit =SubmitField("Submit")
-    
+
+class Salary(FlaskForm):
+    salary = IntegerField("Salary", validators=[DataRequired()])
+    hour = IntegerField("Daily Hours", validators=[DataRequired()])
+    submit = SubmitField("Submit")
