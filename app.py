@@ -118,7 +118,22 @@ def charts():
 @app.route('/salary', methods = ['GET', 'POST'])
 def salary():
     form = Salary()
-    return render_template('salary.html')
+    annual_income = monthly_income = weekly_income = hourly_income = daily_income = hours_per_day = None
+    if form.validate_on_submit():
+        salary = form.salary.data
+        hours_per_day = form.hour.data
+        if hours_per_day > 24:
+            flash('Warning: Hours per day should not exceed 24.', 'warning')
+        else:
+            annual_income = salary
+            monthly_income = "{:.2f}".format(annual_income / 12)
+            daily_income = "{:.2f}".format(annual_income / 365)
+            weekly_income = "{:.2f}".format(float(daily_income) * 7)
+            hourly_income = "{:.2f}".format(float(daily_income) / hours_per_day)
+            flash('Salary Calculated Successfully!','success')  # Add flash message
+    return render_template('salary.html', form=form, annual_income=annual_income, monthly_income=monthly_income,
+                           weekly_income=weekly_income, hourly_income=hourly_income, daily_income=daily_income)
+
 
 if __name__ == '__main__':
     app.run(debug=True)
