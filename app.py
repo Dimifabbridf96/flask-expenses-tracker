@@ -324,4 +324,4 @@ def Spouse2Income():
                            spouse1_hourly_income=spouse1_hourly_income, spouse2_hourly_income=spouse2_hourly_income )
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=False)
