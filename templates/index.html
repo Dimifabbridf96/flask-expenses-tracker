@@ -27,7 +27,7 @@
         {% for expense in expenses %}
         <tr>
             <th scope="row">{{ loop.index }}</th>
-            <td>{{ expense.date }}</td>
+            <td>{{ expense.formatted_date }}</td>
             <td>{{ expense.category }}</td>
             <td>{{ expense.type }}</td>
             <td>{{ expense.amount }}</td>

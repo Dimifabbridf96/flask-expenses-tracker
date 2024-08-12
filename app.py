@@ -18,7 +18,9 @@ class ModelData(db.Model):
     category = db.Column(db.String(100), nullable=False, default="Salary")
     date = db.Column(db.DateTime, nullable=False, default=datetime.now)
     type = db.Column(db.String(20), nullable=False, default="Income")
-    
+    @property
+    def formatted_date(self):
+        return self.date.strftime("%m-%d-%y, %H:%M")
     def __repr__(self):
         return self.id
 

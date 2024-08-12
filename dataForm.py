@@ -12,6 +12,6 @@ class Form(FlaskForm):
     submit =SubmitField("Submit")
 
 class Salary(FlaskForm):
-    salary = IntegerField("Salary", validators=[DataRequired()])
+    salary = IntegerField("Annual Salary", validators=[DataRequired()])
     hour = IntegerField("Daily Hours", validators=[DataRequired()])
     submit = SubmitField("Submit")
