@@ -130,7 +130,7 @@ def salary():
         salary = form.salary.data
         hours_per_day = form.hour.data
         relation = form.relation.data
-    if hours_per_day > 24:
+    if hours_per_day > 24 or hours_per_day is None:
         flash('Warning: Hours per day should not exceed 24.', 'warning')
     else:
         annual_income = salary
