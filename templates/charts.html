@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+
+{% block content  %}
+<div class="d-flex justify-content-around flex-wrap">
+
+    <div class="col-sm-10 col-md-5">
+        <div class="card card-style mb-2">
+            <div class="card-body">
+                <div class="chart-container">
+                    <canvas id="income_vs_expense"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        let income_vs_expense_chart = new Chart(income_vs_expense, {
+            type: 'pie',
+            data: {
+            labels: ['expense', 'income'],
+                datasets: [{
+                    label: "Income Vs Expenses",
+                    data: [3400, 4000],
+                    backgroundColor: ['#5DA5DA ', '#FAA43A'],
+
+                    borderWidth: 1,
+                    hoverBorderColor: "black",
+                    hoverBorderWidth: 2,
+                    hoverBackgroundColor: 'rgba(154, 245, 140)',
+                    pointHoverRadius: 5
+                }],
+            },
+            options: {
+                maintainAspectRatio: false,
+                    title: {
+                        display: true,
+                            text: "Income Vs Expenses",
+                                fontSize: 20,
+                    },
+                    legend: {
+                        position: "right",
+                            labels: {
+                            fontColor: "gray"
+                        },
+                        display: true,
+                    },
+
+                    elements: {
+                        hitRadius: 3,
+                    }
+            }
+        })
+
+    </script>
+{% endblock %}

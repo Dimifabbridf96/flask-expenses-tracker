@@ -1,7 +1,7 @@
 from flask import Flask, render_template, url_for, request, redirect, flash
 from flask_sqlalchemy import SQLAlchemy
 from dataForm import Form
-
+import json
 
 
 app = Flask(__name__)
@@ -15,9 +15,9 @@ from datetime import datetime
 class ModelData(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     amount = db.Column(db.Integer, nullable=False)
-    category = db.Column(db.String(100), nullable=False, default="salary")
+    category = db.Column(db.String(100), nullable=False, default="Salary")
     date = db.Column(db.DateTime, nullable=False, default=datetime.now)
-    type = db.Column(db.String(20), nullable=False, default="income")
+    type = db.Column(db.String(20), nullable=False, default="Income")
     
     def __repr__(self):
         return self.id
@@ -70,6 +70,10 @@ def update(expense_id):
         flash('Expense updated successfully!', 'success')  # Add flash message
         return redirect(url_for('index'))  # Redirect to index page
     return render_template('update.html', form=form)
+
+@app.route('/charts')
+def charts():
+ return render_template('charts.html')
 
 if __name__ == '__main__':
     app.run(debug=True)
