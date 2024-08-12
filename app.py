@@ -130,19 +130,19 @@ def salary():
         salary = form.salary.data
         hours_per_day = form.hour.data
         relation = form.relation.data
-        if hours_per_day > 24:
-            flash('Warning: Hours per day should not exceed 24.', 'warning')
-        else:
-            annual_income = salary
-            monthly_income = "{:.2f}".format(annual_income / 12)
-            daily_income = "{:.2f}".format(annual_income / 365)
-            weekly_income = "{:.2f}".format(float(daily_income) * 7)
-            hourly_income = "{:.2f}".format(float(daily_income) / hours_per_day)
-            hours_per_day = hours_per_day
+    if hours_per_day > 24:
+        flash('Warning: Hours per day should not exceed 24.', 'warning')
+    else:
+        annual_income = salary
+        monthly_income = "{:.2f}".format(annual_income / 12)
+        daily_income = "{:.2f}".format(annual_income / 365)
+        weekly_income = "{:.2f}".format(float(daily_income) * 7)
+        hourly_income = "{:.2f}".format(float(daily_income) / hours_per_day)
+        hours_per_day = hours_per_day
         if relation == 'Single':
             if annual_income < 42000:
-                tax_income = annual_income * 0.20
-                net_annual_income = annual_income - (tax_income)
+                tax_income = "{:.2f}".format(annual_income * 0.20)
+                net_annual_income = annual_income - float(tax_income)
                 net_monthly_income = "{:.2f}".format(net_annual_income / 12)
                 net_daily_income = "{:.2f}".format(net_annual_income / 365)
                 net_weekly_income = "{:.2f}".format(float(net_daily_income) * 7)
@@ -153,8 +153,8 @@ def salary():
                 hours_tax_income =  "{:.2f}".format(float(hourly_income) - float(net_hourly_income))
             elif annual_income > 42000:
                 first_wage = annual_income - 42000
-                tax_income = (annual_income - first_wage)*0.20 + (first_wage * 0.40)
-                net_annual_income = annual_income - tax_income
+                tax_income = "{:.2f}".format((annual_income - first_wage)*0.20 + (first_wage * 0.40))
+                net_annual_income = annual_income - float(tax_income)
                 net_monthly_income = "{:.2f}".format(net_annual_income / 12)
                 net_daily_income = "{:.2f}".format(net_annual_income / 365)
                 net_weekly_income = "{:.2f}".format(float(net_daily_income) * 7)
@@ -165,8 +165,8 @@ def salary():
                 hours_tax_income =  "{:.2f}".format(float(hourly_income) - float(net_hourly_income))
         elif relation == 'Spouse 1 income':
             if annual_income < 51000:
-                tax_income = annual_income * 0.20
-                net_annual_income = annual_income - (annual_income * 0.20)
+                tax_income = "{:.2f}".format(annual_income * 0.20)
+                net_annual_income = annual_income - float(tax_income) 
                 net_monthly_income = "{:.2f}".format(net_annual_income / 12)
                 net_daily_income = "{:.2f}".format(net_annual_income / 365)
                 net_weekly_income = "{:.2f}".format(float(net_daily_income) * 7)
@@ -177,8 +177,8 @@ def salary():
                 hours_tax_income =  "{:.2f}".format(float(hourly_income) - float(net_hourly_income))
             elif annual_income > 51000:
                 first_wage = annual_income - 51000
-                tax_income = (annual_income - first_wage)*0.20 + (first_wage * 0.40)
-                net_annual_income = annual_income - tax_income
+                tax_income = "{:.2f}".format((annual_income - first_wage)*0.20 + (first_wage * 0.40))
+                net_annual_income = annual_income - float(tax_income)
                 net_monthly_income = "{:.2f}".format(net_annual_income / 12)
                 net_daily_income = "{:.2f}".format(net_annual_income / 365)
                 net_weekly_income = "{:.2f}".format(float(net_daily_income) * 7)
@@ -189,8 +189,8 @@ def salary():
                 hours_tax_income =  "{:.2f}".format(float(hourly_income) - float(net_hourly_income))
         elif relation == 'Lone parent':
             if annual_income < 46000:
-                tax_income = annual_income * 0.20
-                net_annual_income = annual_income - (annual_income * 0.20)
+                tax_income = "{:.2f}".format(annual_income * 0.20)
+                net_annual_income = annual_income - float(tax_income)
                 net_monthly_income = "{:.2f}".format(net_annual_income / 12)
                 net_daily_income = "{:.2f}".format(net_annual_income / 365)
                 net_weekly_income = "{:.2f}".format(float(net_daily_income) * 7)
@@ -201,8 +201,8 @@ def salary():
                 hours_tax_income =  "{:.2f}".format(float(hourly_income) - float(net_hourly_income))
             elif annual_income > 46000:
                 first_wage = annual_income - 46000
-                tax_income = (annual_income - first_wage)*0.20 + (first_wage * 0.40)
-                net_annual_income = annual_income - tax_income
+                tax_income = "{:.2f}".format((annual_income - first_wage)*0.20 + (first_wage * 0.40))
+                net_annual_income = annual_income - float(tax_income)
                 net_monthly_income = "{:.2f}".format(net_annual_income / 12)
                 net_daily_income = "{:.2f}".format(net_annual_income / 365)
                 net_weekly_income = "{:.2f}".format(float(net_daily_income) * 7)
@@ -252,7 +252,7 @@ def Spouse2Income():
             tax_income = annual_income * 0.20
             spouse1_tax_income = spouse1_annual_income * 0.20
             spouse2_tax_income = spouse2_annual_income * 0.20
-            net_annual_income = annual_income - tax_income
+            net_annual_income = annual_income - float(tax_income)
             net_monthly_income = "{:.2f}".format(net_annual_income / 12)
             net_daily_income = "{:.2f}".format(net_annual_income / 365)
             net_weekly_income = "{:.2f}".format(float(net_daily_income) * 7)
@@ -305,7 +305,7 @@ def Spouse2Income():
             if annual_income > 84000:
                 extra_wage = annual_income - 84000
                 tax_income = ((annual_income - extra_wage) *0.20) + (extra_wage * 0.40 )
-                net_annual_income = annual_income - tax_income
+                net_annual_income = annual_income - float(tax_income)
                 
     return render_template('spouse2Income.html', form=form, annual_income = annual_income, monthly_income=monthly_income, weekly_income=weekly_income, daily_income=daily_income,
                            taxes=tax_income, spouse1_tax_income=spouse1_tax_income, net_spouse2_annual_income= net_spouse2_annual_income, net_spouse1_monthly_income=net_spouse1_monthly_income,
@@ -325,4 +325,4 @@ def Spouse2Income():
                            spouse1_hourly_income=spouse1_hourly_income, spouse2_hourly_income=spouse2_hourly_income )
 
 if __name__ == '__main__':
-    app.run(debug=False)
+    app.run(debug=True)
